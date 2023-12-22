@@ -609,6 +609,7 @@ cmp.setup({
 vim.api.nvim_set_keymap("n", "fd", ":Format<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<leader>w", ":w<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<M-s>", ":w<CR>", { noremap = true })
 
 vim.api.nvim_set_keymap("n", "<M-->", ":bp<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<M-=>", ":bn<CR>", { noremap = true, silent = true })
