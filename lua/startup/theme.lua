@@ -55,9 +55,9 @@ local settings = {
 		content = {
 			{ " Find File in Workspace", "Telescope find_files", "|" },
 			{ "\u{F126} Find File in Git Repo", "Telescope git_files", "\\" },
-			{ "\u{1F50D}" .. "Find Word", "Telescope live_grep", ";" },
+			{ "\u{1F50D}" .. "Find Word", "Telescope live_grep", "<leader>f" },
 			{ " Recent Files", "Telescope oldfiles", "<leader>?" },
-			{ " File Browser", "NvimTreeToggle", "<C-b>" },
+			{ " File Browser", "NvimTreeToggle", "<C-P>" },
 			{ " Colorschemes", "Telescope colorscheme", "<leader>cs" },
 			{ " New File", "lua require'startup'.new_file()", "<leader>nf" },
 		},

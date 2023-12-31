@@ -79,9 +79,8 @@ require("lazy").setup({
 		},
 	},
 
-	{ "tanvirtin/vgit.nvim" },
-
 	{ "folke/which-key.nvim", opts = {} },
+
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
@@ -261,6 +260,9 @@ vim.o.shiftwidth = 2
 
 vim.o.relativenumber = true
 
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
+
 vim.cmd("Copilot disable")
 -- [[ Basic Keymaps ]]
 
@@ -314,7 +316,7 @@ vim.keymap.set("n", "\\", require("telescope.builtin").git_files)
 vim.keymap.set("n", "|", require("telescope.builtin").find_files)
 vim.keymap.set("n", "<C-h>", require("telescope.builtin").help_tags)
 vim.keymap.set("n", ",", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", ";", require("telescope.builtin").live_grep)
+vim.keymap.set("n", "<leader>f", require("telescope.builtin").live_grep)
 vim.keymap.set("n", "-", require("telescope.builtin").diagnostics)
 
 vim.keymap.set("n", "<leader>cs", function()
@@ -340,10 +342,10 @@ vim.keymap.set("n", "<M-.>", function()
 end, { noremap = true })
 
 vim.keymap.set("n", "<M-/>", ":Git status<CR>", { noremap = true, silent = true })
--- vim.keymap.set("n", "<M->", ":Git commit | startinsert<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-CR>", ":Git commit | startinsert<CR>", { noremap = true, silent = true })
 
 -- [[ Configure Nvim Tree ]]
-vim.keymap.set("n", "<C-B>", ":NvimTreeToggle<CR>", { desc = "[N]vim [T]ree", silent = true })
+vim.keymap.set("n", "<C-P>", ":NvimTreeToggle<CR>", { desc = "[N]vim [T]ree", silent = true })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -706,9 +708,6 @@ vim.keymap.set("n", "<leader>0", function()
 	harpoon:list():select(10)
 end)
 
--- vgit
-require("vgit").setup()
-
 -- ToggleTerm
 
 require("toggleterm").setup({
@@ -761,8 +760,6 @@ function ToggleColorMode()
 end
 
 vim.api.nvim_set_keymap("n", "<leader>qq", ":lua Welcome()<CR>", { noremap = true })
-
-vim.api.nvim_del_keymap("n", "<Esc>")
 
 function Welcome()
 	require("startup").display(true)
