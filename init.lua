@@ -140,7 +140,7 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     opts = {
       view = {
-        width = 35,
+        width = 60,
         side = "left",
       },
 
@@ -162,28 +162,27 @@ require("lazy").setup({
 
   {
     "debugloop/telescope-undo.nvim",
-    dependencies = { -- note how they're inverted to above example
+    dependencies = {
       {
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
       },
     },
     keys = {
-      { -- lazy style key map
+      {
         "<F5>",
         "<cmd>Telescope undo<cr>",
         desc = "undo history",
       },
     },
     opts = {
-      -- don't use `defaults = { }` here, do this in the main telescope spec
       extensions = {
         undo = {
           opts = {
             extensions = {
               undo = {
                 side_by_side = true,
-                layout_strategy = "vertical",
+                layout_strategy = "horizontal",
                 layout_config = {
                   preview_height = 0.8,
                 },
@@ -264,7 +263,17 @@ require("lazy").setup({
       require("startup").setup(require("startup.theme"))
     end,
   },
+  "ms-jpq/coq_nvim",
+  {
+    "ms-jpq/coq.artifacts",
+    branch = "artifacts"
+  },
+  {
+    "ms-jpq/coq.thirdparty",
+    branch = "3p"
+  },
 }, {})
+
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -363,8 +372,8 @@ end, { desc = "[/] Fuzzily search in current buffer" })
 vim.keymap.set("n", "\\", require("telescope.builtin").git_files)
 vim.keymap.set("n", "|", require("telescope.builtin").find_files)
 vim.keymap.set("n", "<C-h>", require("telescope.builtin").help_tags)
-vim.keymap.set("n", ",", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>f", require("telescope.builtin").live_grep)
+vim.keymap.set("n", "<leader>f", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+vim.keymap.set("n", "<C-f>", require("telescope.builtin").live_grep)
 vim.keymap.set("n", "-", require("telescope.builtin").diagnostics)
 
 vim.keymap.set("n", "<leader>cs", function()
@@ -496,12 +505,6 @@ vim.keymap.set("", "m", function()
 end, { remap = true })
 vim.keymap.set("", "M", function()
   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
-end, { remap = true })
-vim.keymap.set("", "t", function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
-end, { remap = true })
-vim.keymap.set("", "T", function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
 end, { remap = true })
 
 -- Zen mode
@@ -726,7 +729,7 @@ end)
 -- ToggleTerm
 
 require("toggleterm").setup({
-  size = 15,
+  size = 30,
   open_mapping = [[<c-\>]],
   hidden = true,
 })
