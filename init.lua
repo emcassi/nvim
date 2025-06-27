@@ -18,6 +18,10 @@ vim.o.number = true
 --  Experiment for yourself to see if you like it!
 vim.o.relativenumber = true
 
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = "a"
 
@@ -93,7 +97,6 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "fd", ":Format<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>w", ":w<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<M-s>", ":w<CR>", { noremap = true })
 
@@ -101,6 +104,9 @@ vim.api.nvim_set_keymap("n", "<M-->", ":bp<CR>", { noremap = true, silent = true
 vim.api.nvim_set_keymap("n", "<M-=>", ":bn<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<M-w>", ":bd<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<M-[>", ":m .+1<CR>==", { noremap = true }) -- Move line up(n)
+vim.api.nvim_set_keymap("n", "<M-]>", ":m .-2<CR>==", { noremap = true }) -- Move line down(n)
 
 vim.api.nvim_set_keymap("n", "<leader>=", ":e ~/.config/nvim/init.lua<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>-", ":e ~/.config/nvim/init.lua.old<CR>", { noremap = true, silent = true })
@@ -181,7 +187,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+	-- "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -630,6 +636,29 @@ require("lazy").setup({
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
 				-- ts_ls = {},
 				--
+				--
+				elixirls = {
+					cmd = { "elixir-ls" },
+					filetypes = { "elixir" },
+					capabilities = capabilities,
+					settings = {
+						elixirLS = {
+							dialyzerEnabled = true,
+							fetchDeps = false,
+						},
+					},
+				},
+
+        nim_langserver = {
+          cmd = { "nimlangserver" },
+          filetypes = { "nim" },
+          capabilities = capabilities,
+          settings = {
+            nim = {
+              nimsuggestPath = "/home/lexi/.nimble/bin/nimsuggest"
+          },
+        },
+      },
 
 				lua_ls = {
 					-- cmd = { ... },
@@ -716,8 +745,8 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "black" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
+				javascript = { "biome" },
+				typescript = { "biome" },
 				go = { "gofmt" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
@@ -786,7 +815,7 @@ require("lazy").setup({
 				-- <c-k>: Toggle signature help
 				--
 				-- See :h blink-cmp-config-keymap for defining your own keymap
-				preset = "default",
+				preset = "enter",
 
 				-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
 				--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps

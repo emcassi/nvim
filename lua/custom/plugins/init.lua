@@ -19,4 +19,42 @@ return {
 			vim.api.nvim_set_keymap("n", "<leader>g", ":Neogit<CR>", { noremap = true })
 		end,
 	},
+	{
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+			require("supermaven-nvim").setup({})
+		end,
+	},
+	{
+		"smoka7/hop.nvim",
+		version = "*",
+		opts = {
+			keys = "etovxqpdygfblzhckisuran",
+		},
+		config = function()
+			local hop = require("hop")
+			hop.setup()
+			local directions = require("hop.hint").HintDirection
+			vim.keymap.set("", "f", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "F", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "t", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+			end, { remap = true })
+			vim.keymap.set("", "T", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+			end, { remap = true })
+			vim.keymap.set("", "m", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
+			end, { remap = true })
+			vim.keymap.set("", "M", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+			end, { remap = true })
+			vim.keymap.set("n", "<leader>my", ":HopYankChar1<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>mp", ":HopPasteChar1<CR>", { noremap = true })
+		end,
+	},
 }
