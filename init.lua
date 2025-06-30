@@ -638,7 +638,7 @@ require("lazy").setup({
 				--
 				--
 				elixirls = {
-					cmd = { "elixir-ls" },
+					cmd = { "/home/lexi/.elixir-ls/release/language_server.sh" },
 					filetypes = { "elixir" },
 					capabilities = capabilities,
 					settings = {

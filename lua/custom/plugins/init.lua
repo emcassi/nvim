@@ -35,18 +35,6 @@ return {
 			local hop = require("hop")
 			hop.setup()
 			local directions = require("hop.hint").HintDirection
-			vim.keymap.set("", "f", function()
-				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-			end, { remap = true })
-			vim.keymap.set("", "F", function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-			end, { remap = true })
-			vim.keymap.set("", "t", function()
-				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-			end, { remap = true })
-			vim.keymap.set("", "T", function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-			end, { remap = true })
 			vim.keymap.set("", "m", function()
 				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
 			end, { remap = true })
@@ -55,6 +43,44 @@ return {
 			end, { remap = true })
 			vim.keymap.set("n", "<leader>my", ":HopYankChar1<CR>", { noremap = true })
 			vim.keymap.set("n", "<leader>mp", ":HopPasteChar1<CR>", { noremap = true })
+		end,
+	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
+				background_colour = "#000000",
+				on_open = nil,
+				on_close = nil,
+				render = "default",
+				timeout = 5000,
+				title = "Notification",
+				stages = "fade_in_slide_out",
+				icons = {
+					ERROR = "",
+					WARN = "",
+					INFO = "",
+					DEBUG = "",
+					TRACE = "✎",
+				},
+				max_width = nil,
+				max_height = nil,
+				min_width = nil,
+				min_height = nil,
+				padding = nil,
+				opacity = nil,
+			})
+			vim.notify = require("notify")
+		end,
+	},
+	{
+		"streamline.nvim",
+		dir = "~/Dev/streamline",
+		name = "streamline",
+		dev = true,
+		config = function()
+			require("streamline").setup()
+			vim.keymap.set("n", "<leader>sb", ":StreamBuffers<CR>", { noremap = true })
 		end,
 	},
 }
