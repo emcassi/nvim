@@ -81,6 +81,15 @@ return {
 		config = function()
 			require("streamline").setup()
 			vim.keymap.set("n", "<leader>sb", ":StreamBuffers<CR>", { noremap = true })
+			vim.keymap.set("n", "<A-n>", ":StreamNavForward<CR>", { noremap = true })
+			vim.keymap.set("n", "<A-p>", ":StreamNavBackward<CR>", { noremap = true })
+			vim.keymap.set("n", "<A-;>", ":StreamNavToPrevious<CR>", { noremap = true })
+
+			for i = 1, 9 do
+				vim.keymap.set("n", "<leader>" .. i, function()
+					vim.cmd("StreamNavToIndex " .. i)
+				end, { noremap = true, desc = "Jump to buffer " .. i })
+			end
 		end,
 	},
 }
